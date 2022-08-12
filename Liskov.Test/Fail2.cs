@@ -1,10 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
+using System;
 
 namespace Liskov.Test
 {
     [TestClass]
-    public class Fail1
+    public class Fail2
     {
         class Rectangle
         {
@@ -40,11 +41,18 @@ namespace Liskov.Test
             }
             public override void SetHeight(double height)
             {
+                if (height != Width) {
+                    throw new Exception("Height and Width can't be different");
+                }
                 base.SetHeight(height);
                 base.SetWidth(height);
             }
             public override void SetWidth(double width)
             {
+                if (width != Height)
+                {
+                    throw new Exception("Height and Width can't be different");
+                }
                 base.SetHeight(width);
                 base.SetWidth(width);
             }
@@ -56,32 +64,32 @@ namespace Liskov.Test
             rectangle.SetHeight(4);
             return rectangle;
         }
+
         [TestMethod]
         public void HappyPath()
         {
             var square = new Square(2);
             square.Width.ShouldBe(2);
             square.Height.ShouldBe(2);
-
-            square.SetWidth(5);
-            square.Width.ShouldBe(5);
-            square.Height.ShouldBe(5);
         }
 
         [TestMethod]
         public void HappyPath2()
         {
             var rectangle = new Rectangle(2, 2);
-            var adjusted = AdjustSize(rectangle);
+            var adjusted = AdjustSize(rectangle); 
             adjusted.Area.ShouldBe(12);
         }
+
 
         [TestMethod]
         public void WillFail()
         {
-            var square = new Square(2);
-            var adjusted = AdjustSize(square);
-            adjusted.Area.ShouldBe(12);  // Fail: will be 16
+            var rectangle = new Square(2);
+            var adjusted = AdjustSize(rectangle); // This will fail
+            adjusted.Area.ShouldBe(12);
         }
+
+
     }
 }
