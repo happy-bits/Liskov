@@ -10,6 +10,8 @@ namespace Liskov.Test
         {
             private readonly double _width;
             private readonly double _height;
+            private double _x;
+            private double _y;
 
             public double Area => _width * _height;
 
@@ -22,8 +24,18 @@ namespace Liskov.Test
                 _height = height;
             }
 
-            public double X { get; set; }
-            public double Y { get; set; }
+
+            public double X => _x;
+            public double Y => _y;
+
+            public void SetX(double x)
+            {
+                _x = x;
+            }
+            public void SetY(double y)
+            {
+                _y = y;
+            }
         }
 
         class Square : Rectangle
@@ -43,8 +55,8 @@ namespace Liskov.Test
 
         static Rectangle AdjustPosition(Rectangle rectangle)
         {
-            rectangle.X = 100;
-            rectangle.Y = 200;
+            rectangle.SetX(100);
+            rectangle.SetY(200);
             return rectangle;
         }
 
