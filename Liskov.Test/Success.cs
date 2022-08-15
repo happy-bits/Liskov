@@ -24,7 +24,6 @@ namespace Liskov.Test
                 _height = height;
             }
 
-
             public double X => _x;
             public double Y => _y;
 
@@ -45,23 +44,27 @@ namespace Liskov.Test
             }
         }
 
-        /* Not possible to write this function anymore
-        static Rectangle AdjustSize(Rectangle rectangle)
+        /* 
+         
+        Not possible to write this function anymore (which is good):
+         
+        static void AdjustSize(Rectangle rectangle)
         {
             rectangle.SetWidth(3);
             rectangle.SetHeight(4);
             return rectangle;
-        }*/
+        }
+        
+         */
 
-        static Rectangle AdjustPosition(Rectangle rectangle)
+        static void AdjustPosition(Rectangle rectangle)
         {
             rectangle.SetX(100);
             rectangle.SetY(200);
-            return rectangle;
         }
 
         [TestMethod]
-        public void HappyPath()
+        public void HappyPath1()
         {
             var rectangle = new Rectangle(3, 4);
             rectangle.Width.ShouldBe(3);

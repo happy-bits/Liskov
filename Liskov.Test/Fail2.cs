@@ -58,15 +58,14 @@ namespace Liskov.Test
             }
         }
 
-        static Rectangle AdjustSize(Rectangle rectangle)
+        static void AdjustSize(Rectangle rectangle)
         {
             rectangle.SetWidth(3);
             rectangle.SetHeight(4);
-            return rectangle;
         }
 
         [TestMethod]
-        public void HappyPath()
+        public void HappyPath1()
         {
             var square = new Square(2);
             square.Width.ShouldBe(2);
@@ -77,8 +76,8 @@ namespace Liskov.Test
         public void HappyPath2()
         {
             var rectangle = new Rectangle(2, 2);
-            var adjusted = AdjustSize(rectangle); 
-            adjusted.Area.ShouldBe(12);
+            AdjustSize(rectangle);
+            rectangle.Area.ShouldBe(12);
         }
 
 
@@ -86,8 +85,8 @@ namespace Liskov.Test
         public void WillFail()
         {
             var rectangle = new Square(2);
-            var adjusted = AdjustSize(rectangle); // This will fail
-            adjusted.Area.ShouldBe(12);
+            AdjustSize(rectangle); // This will fail
+            rectangle.Area.ShouldBe(12);
         }
 
 
